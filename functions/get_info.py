@@ -1,3 +1,6 @@
+from classes.exception_classes import LenNumberError, NameError
+
+
 def get_info():
     is_valid_first_name = False
     while not is_valid_first_name:

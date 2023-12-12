@@ -1,6 +1,6 @@
 from os.path import exists
-from functions.get_info import get_info
-from functions.file_operations import create_file, read_file, write_file, search_in_file
+from seminar08_homework.service_functions.get_info import get_info
+from seminar08_homework.service_functions.file_operations import create_file, read_file, write_file, search_in_file
 
 
 def main(file_name):

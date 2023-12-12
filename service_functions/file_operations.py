@@ -1,6 +1,7 @@
 from csv import DictReader, DictWriter
-from functions.get_info import get_valid_data
-from classes.exception_classes import LenNumberError, LenNameError
+from seminar08_homework.service_functions.get_info import get_valid_data
+from seminar08_homework.custom_classes.exception_classes import LenNumberError, LenNameError
+
 
 def create_file(file_name):
     with open(file_name, "w", encoding='utf-8') as data:
@@ -28,6 +29,7 @@ def write_file(file_name, lst):
         f_writer.writeheader()
         f_writer.writerows(res)
 
+
 def search_in_file(file_name):
     while True:
         print("----------------")
@@ -37,14 +39,14 @@ def search_in_file(file_name):
         print("3 - по номеру телефона")
         criteria = input("Критерий поиска: ")
         print("----------------")
-        match (criteria):
+        match criteria:
             case "1":
                 field_name = "Имя"
-                searching_item = get_valid_data("имя", LenNameError("Введено некорректное значение"))
+                searching_item = get_valid_data("имя", LenNameError("Имя слишком короткое"))
                 break
             case "2":
                 field_name = "Фамилия"
-                searching_item = get_valid_data("фамилию", NameError("Введено некорректное значение"))
+                searching_item = get_valid_data("фамилию", LenNameError("Фамилия слишком короткая"))
                 break
             case "3":
                 field_name = "Телефон"
@@ -53,7 +55,14 @@ def search_in_file(file_name):
             case _:
                 print("Выбран неверный критерий")
 
-    res = read_file(file_name)
-    for el in res:
-        if el[field_name] == searching_item:
-            return el[field_name]
+    data_dictionary = read_file(file_name)
+
+    res_list = list()
+
+# поиск всех вхождений искомого значения
+#  (например, несколько записей с одинаковыми именами
+    for el in data_dictionary:
+        for key, value in el.items():
+            if key == field_name and value == searching_item:
+                res_list.append(el)
+    return res_list

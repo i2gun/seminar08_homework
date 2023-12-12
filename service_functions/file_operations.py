@@ -60,9 +60,27 @@ def search_in_file(file_name):
     res_list = list()
 
 # поиск всех вхождений искомого значения
-#  (например, несколько записей с одинаковыми именами
+#  (например, несколько записей с одинаковыми именами)
     for el in data_dictionary:
         for key, value in el.items():
             if key == field_name and value == searching_item:
                 res_list.append(el)
     return res_list
+
+
+def copy_file(file_name):
+    new_file_name = input("Введите имя файла принимающего строку: ")
+    while True:
+        try:
+            line_number = int(input("Введите номер строки: "))
+            break
+        except Exception:
+            print("Введен неверный номер строки")
+
+    with open(file_name, "r", encoding='utf-8') as data:
+        for _ in range(line_number):
+            f_reader = DictReader(data)
+
+    with open(new_file_name, "w", encoding='utf-8') as data:
+        f_writer = DictWriter(data, fieldnames=['Имя', 'Фамилия', 'Телефон'])
+        f_writer.writerows(f_reader)

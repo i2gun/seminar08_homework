@@ -1,10 +1,12 @@
 from os.path import exists
 from seminar08_homework.service_functions.get_info import get_info
-from seminar08_homework.service_functions.file_operations import create_file, read_file, write_file, search_in_file
+from seminar08_homework.service_functions.file_operations import create_file, read_file, write_file, search_in_file, \
+    copy_file
 
 
 def main(file_name):
     while True:
+        print("Доступные команды: q - выход, w - запись, r - чтение, s - поиск, c - копирование")
         command = input("Введите команду: ")
         match (command):
             case "q":
@@ -26,3 +28,9 @@ def main(file_name):
                     print("Файл отсутствует. Создайте его")
                     continue
                 print(*search_in_file(file_name))
+
+            case "c":
+                if not exists(file_name):
+                    print("Файл отсутствует. Создайте его")
+                    continue
+                copy_file(file_name)

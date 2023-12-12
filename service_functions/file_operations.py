@@ -56,7 +56,6 @@ def search_in_file(file_name):
                 print("Выбран неверный критерий")
 
     data_dictionary = read_file(file_name)
-
     res_list = list()
 
 # поиск всех вхождений искомого значения
@@ -65,6 +64,7 @@ def search_in_file(file_name):
         for key, value in el.items():
             if key == field_name and value == searching_item:
                 res_list.append(el)
+
     return res_list
 
 
@@ -78,9 +78,28 @@ def copy_file(file_name):
             print("Введен неверный номер строки")
 
     with open(file_name, "r", encoding='utf-8') as data:
-        for _ in range(line_number):
-            f_reader = DictReader(data)
+        f_reader = DictReader(data)
+        gen = (row for idx, row in enumerate(f_reader) if idx == line_number)
+        one_line = dict(*gen)
 
-    with open(new_file_name, "w", encoding='utf-8') as data:
+    file_is_empty = False
+    with open(new_file_name, "r", encoding='utf-8') as data:
+        f_reader = DictReader(data)
+        if len(list(f_reader)) == 0:
+            file_is_empty = True
+
+    if file_is_empty:
+        with open(new_file_name, "w", encoding='utf-8', newline='') as data:
+            f_writer = DictWriter(data, fieldnames=['Имя', 'Фамилия', 'Телефон'])
+            f_writer.writeheader()
+    else:
+        with open(new_file_name, "r", encoding='utf-8') as data:
+            f_reader = DictReader(data)
+            if one_line in f_reader:
+                print("Такие данные уже есть в файле " + new_file_name)
+                return
+
+    with open(new_file_name, "a", encoding='utf-8', newline='') as data:
         f_writer = DictWriter(data, fieldnames=['Имя', 'Фамилия', 'Телефон'])
-        f_writer.writerows(f_reader)
+        f_writer.writerow(one_line)
+        print(one_line)

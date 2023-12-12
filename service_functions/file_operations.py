@@ -1,4 +1,4 @@
-from csv import DictReader, DictWriter, reader
+from csv import DictReader, DictWriter
 from seminar08_homework.service_functions.get_info import get_valid_data
 from seminar08_homework.custom_classes.exception_classes import LenNumberError, LenNameError
 
@@ -56,7 +56,6 @@ def search_in_file(file_name):
                 print("Выбран неверный критерий")
 
     data_dictionary = read_file(file_name)
-
     res_list = list()
 
 # поиск всех вхождений искомого значения
@@ -65,6 +64,7 @@ def search_in_file(file_name):
         for key, value in el.items():
             if key == field_name and value == searching_item:
                 res_list.append(el)
+
     return res_list
 
 

@@ -21,13 +21,17 @@ def main(file_name):
                 if not exists(file_name):
                     print("Файл отсутствует. Создайте его")
                     continue
-                print(*read_file(file_name))
+                output = read_file(file_name)
+                for i in range(len(output)):
+                    print(output[i])
             
             case "s":
                 if not exists(file_name):
                     print("Файл отсутствует. Создайте его")
                     continue
-                print(*search_in_file(file_name))
+                output = search_in_file(file_name)
+                for i in range(len(output)):
+                    print(output[i])
 
             case "c":
                 if not exists(file_name):

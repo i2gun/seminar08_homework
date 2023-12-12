@@ -3,6 +3,6 @@ class LenNumberError(Exception):
         self.txt = txt
 
 
-class NameError(Exception):
+class LenNameError(Exception):
     def __init__(self, txt):
         self.txt = txt

@@ -7,7 +7,7 @@
 # записи(Например имя или фамилию человека)e
 # 4. Использование функций. Ваша программа не должна быть линейной
 
-from classes.exception_classes import LenNumberError, NameError
+from classes.exception_classes import LenNumberError, LenNameError
 from functions.main import main
 
 main('phone.csv')
